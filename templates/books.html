@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Books Page
+{% endblock %}
+
+{% block body %}
+  <div class="jumbotron" id="searchdiv">
+    <h1> Search results for  '{{first_search}}'</h1>
+    <p> </p>
+    <div class="list-group"
+      <ul>
+        {% for result in results %}
+          <a href="{{url_for('bookinfo', book_id=result.id)}}" method="post" class="list-group-item list-group-item-action">
+            <li value="{{result.id}}"> The title is {{result.title}}, the author is {{result.author}}, and the isbn is {{result.isbn}}</li>
+          </a>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

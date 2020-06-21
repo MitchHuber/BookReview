@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Search Page
+{% endblock %}
+
+{% block body %}
+  <div class="jumbotron" id="maindiv">
+    <h1> Search for a book</h1>
+    <p> </p>
+    {{message}}
+    <p> </p>
+    <div class="form-group">
+      <form action="{{url_for('searchResults')}}" method="post">
+        <label for="search"> Search using ISBN, title, or an author: </label>
+        <input class="form-control" name="search" id="search" placeholder="ISBN, title, or an author">
+        <p> </p>
+        <div style="text-align:center;">
+          <button class="btn btn-dark">Search</button>
+        </div>
+      </form>
+    </div>
+    <div style="text-align:center;">
+      <form action="{{url_for('logout')}}" method="post">
+        <button class="btn btn-dark"> Logout </button>
+    </div>
+  </div>
+{% endblock %}

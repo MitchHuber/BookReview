@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Login Page
+{% endblock%}
+
+{% block body %}
+  <div class="jumbotron" id="logindiv">
+    <h1> Login or Register an account </h1>
+      {{message}}
+    <div class="form-group">
+      <form action="{{url_for('login')}}" method="post">
+        <p> </p>
+        <label for="un"> Enter your username: </label>
+        <input class="form-control" name="username" id="un" placeholder="Username">
+        <p> </p>
+        <label for="pw"> Enter you password: </label>
+        <input class="form-control" type="password" name="password" id="pw" placeholder="Password">
+        <p> </p>
+        <div style="text-align:center;">
+          <button class="btn btn-dark">Login</button>
+        </div>
+      </form>
+      <p> </p>
+      <div style="text-align:center;">
+        <form action="{{url_for('register')}}" method="post">
+          <button class="btn btn-dark">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

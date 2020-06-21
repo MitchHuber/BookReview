@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+BookInfo Page
+{% endblock %}
+
+{% block body %}
+  <div class="jumbotron" id="bookinfodiv">
+    <div style="text-align: center;">
+    <div style="display: inline-block; text-align: left;">
+    <h3> Book Info</h3>
+    <p> </p>
+    {{message}}
+      <ul class="list-group list-group">
+      {% for info in book %}
+        <form action="{{url_for('saverev', book_isbn=info.isbn)}}" method="post">
+          <li class="list-group item"> The title is {{info.title}}</li>
+          <li class="list-group item"> The author is {{info.author}}</li>
+          <li class="list-group item"> Published in {{info.year}}</li>
+          <li class="list-group item"> The isbn is {{info.isbn}}</li>
+          <li class="list-group item"> This title has been rated {{totalrating}} times </li>
+          <li class="list-group item"> This title has an average rating of {{avgrating}} out of 5 </li>
+          <p></p>
+      {% endfor %}
+      <h3> Reviews</h3>
+        <ul class="list-group list-group">
+          {% for info in review %}
+          <li class="list-group item"> {{username[loop.index-1]}}'s Review: </li>
+          <li class="list-group item"> The description: {{info.description}} </li>
+          <li class="list-group item"> Rated this title {{info.rating}} out of 5.</li>
+          <p> </p>
+            {% endfor %}
+        </ul>
+        <p> </p>
+        <label for="textarea"> Leave a review: </label>
+        <p> </p>
+        <textarea rows="5" cols="35" placeholder="Write you review" id="textarea" name="description"></textarea>
+        <p> Rate this book out of 5: </p>
+        <div style="text-align:center;"
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" name="rating" id="option1" value="1" autocomplete="off" required checked> 1
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="rating" id="option2" value="2" autocomplete="off"> 2
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="rating" id="option3" value="3" autocomplete="off"> 3
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="rating" id="option2" value="4" autocomplete="off"> 4
+          </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="rating" id="option3" value="5" autocomplete="off"> 5
+        </label>
+      </div>
+      <p> </p>
+      <button type="submit" name="submit" class="btn btn-dark">Submit</button>
+      </div>
+    </form>
+  </ul>
+      </div>
+      </div>
+  </div>
+{% endblock %}
