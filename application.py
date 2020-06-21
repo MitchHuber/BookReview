@@ -147,20 +147,35 @@ def logout():
 
 @app.route("/api/<string:isbn>")
 def api(isbn):
-    print(isbn)
     if db.execute("SELECT isbn FROM books WHERE isbn = :id",
         {"id": isbn}).rowcount == 0:
         return jsonify({"error": "Invalid ISBN"}), 404
+
     isbns = db.execute("SELECT isbn FROM books WHERE isbn = :id",
         {"id": isbn}).fetchone()[0]
 
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
         params={"key": "C3kxNYZgP5DXgSbQwX7yQ", "isbns": isbns})
 
+    title = db.execute("SELECT title FROM books WHERE isbn = :isbn",
+        {"isbn": isbns}).fetchone()[0]
+    author = db.execute("SELECT author FROM books WHERE isbn = :isbn",
+        {"isbn": isbns}).fetchone()[0]
+    year = db.execute("SELECT year FROM books WHERE isbn = :isbn",
+        {"isbn": isbns}).fetchone()[0]
+
     data = res.json()
     parsed_data = json.dumps(data)
     reviews = data.get("books")
 
+    totalrating = (reviews[0].get("reviews_count"))
+    avgrating = (reviews[0].get("average_rating"))
+
     return jsonify({
-        "books": reviews
+        "title": title,
+        "author": author,
+        "isbn": isbn,
+        "year": year,
+        "review_count": totalrating,
+        "average_score": avgrating
     })
